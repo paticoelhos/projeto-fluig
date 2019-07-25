@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<!-- SCRIPTS -->
+		<script src="/resources/js/jquery/jquery.js"></script>
+		<script src="/resources/js/jquery/jquery-ui.min.js"></script>
+		<script src="/resources/js/mustache/mustache-min.js"></script>
+		<script src="/resources/style-guide/js/fluig-style-guide.min.js"></script>
+		<script src="/resources/style-guide/js/fluig-style-guide-filter.min.js"></script>
+		<script src="/resources/style-guide/js/fluig-style-guide-ratingstars.min.js"></script>
+		<script src="../vcXMLRPC.js"></script>
+		<script src="/webdesk/vcXMLRPC.js"></script>
+		<script src="/webdesk/ecm_datasets.js"></script>
+		<script src="/toro/resources/js/Eventos_Customizados.js"></script>
+		<script src="/toro/resources/js/jquery.mask.js"></script>
+		 <script src="eventos.js"></script>
+		<!-- SCRIPTS -->
+		
+		<!-- CSS -->
+		<link href='/webdesk/customresources?cid=1&resourceName=temaFormulario/0.css' type='text/css' rel='stylesheet' />
+		<link href="/resources/style-guide/css/fluig-style-guide-filter.min.css" rel="stylesheet" type="text/css">
+		<link href="/resources/style-guide/css/fluig-style-guide-ratingstars.min.css" rel="stylesheet" type="text/css">
+		<link href="/toro/resources/css/Estilos_Customizados.css" type="text/css" rel="stylesheet">
+		<link rel="stylesheet" href="https://style.fluig.com/css/fluig-style-guide-docs.min.css">
+		<!-- CSS -->
+	</head>
+<body>
+	<div class="fluig-style-guide">
+	<form id="formTemplate" name="formTemplate" role="form">
+		
+		<!-- Topo - Titulo do Processo -->
+		<div class="panel panel-default">
+			<div class="panel-body fundoPersonalizado">
+				<div class="col-md-12 text-center fs-no-padding">
+					<label class="tituloPersonalizado">Atualizar WSUS Homologação</label><label class="pontoPersonalizado">.</label>
+				</div>
+			</div>
+		</div>
+		<!-- Topo - Titulo do Processo -->
+		
+		<!-- Dados da Solicitacao -->
+		<div class="panel panel-default" id="painelSolicitacao">
+			<div class="panel-heading">
+				<h3 class="panel-title">Solicitação</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group col-md-12">
+					<div class="alert alert-info" role="alert">
+						<a href="#" class="alert-link">Lembre-se de anexar as evidências sobre as atualizações do Windows nas estações e servidores de homologação.</a>
+					</div>
+					<div class="form-group col-md-12">
+					<label>Comentário</label><br>
+						<textarea class="form-control" rows="3" id="comentario" name="comentario" style="resize: none;"></textarea>
+					</div>
+				</div>
+			</div>				
+		</div>		
+		<!-- Dados da Solicitacao -->
+		
+		</form>	
+	</div>
+	</body>
+</html>
