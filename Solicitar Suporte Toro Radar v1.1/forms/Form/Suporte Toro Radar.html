@@ -1,0 +1,205 @@
+<html>
+
+	<head>
+
+		<!-- SCRIPTS -->
+		<script src="/resources/js/jquery/jquery.js"></script>
+		<script src="/resources/js/jquery/jquery-ui.min.js"></script>
+		<script src="/resources/js/mustache/mustache-min.js"></script>
+		<script src="/resources/style-guide/js/fluig-style-guide.min.js"></script>
+		<script src="/resources/style-guide/js/fluig-style-guide-filter.min.js"></script>
+		<script src="/resources/style-guide/js/fluig-style-guide-ratingstars.min.js"></script>
+		<script src="/webdesk/vcXMLRPC.js"></script>
+		<script src="/webdesk/ecm_datasets.js"></script>
+		<script src="/toro/resources/js/Eventos_Customizados.js"></script>
+		<script src="/toro/resources/js/jquery.mask.js"></script>
+		<script src="eventos.js"></script>
+		<!-- SCRIPTS -->
+
+		<!-- CSS -->
+		<link href='/webdesk/customresources?cid=1&resourceName=temaFormulario/0.css' type='text/css' rel='stylesheet'>
+		<link href="/resources/style-guide/css/fluig-style-guide-filter.min.css" rel="stylesheet" type="text/css">
+		<link href="/resources/style-guide/css/fluig-style-guide-ratingstars.min.css" rel="stylesheet" type="text/css">
+		<link href="/toro/resources/css/Estilos_Customizados.css" type="text/css" rel="stylesheet">
+		<link href="https://style.fluig.com/css/fluig-style-guide-docs.min.css" rel="stylesheet">
+		<!-- CSS -->
+
+	</head>
+
+	<body>
+		<div class="fluig-style-guide">
+			<form id="formTemplate" name="formTemplate" role="form">
+				<!-- Topo - Titulo do Processo -->
+				<div class="panel panel-default">
+					<div class="panel-body fundoPersonalizado">
+						<div class="col-md-12 text-center fs-no-padding">
+							<label class="tituloPersonalizado">Solicitar Suporte ao Toro Radar</label><label class="pontoPersonalizado">.</label>
+						</div>
+					</div>
+				</div>
+				<!-- Topo - Titulo do Processo -->
+
+				<!-- Dados do Solicitante -->
+				<div class="panel panel-default" id="painelSolicitante">
+					<div class="panel-heading">
+						<h3 class="panel-title">Solicitante</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="form-group col-md-2">
+								<label>Data de Abertura</label><br>
+								<div class="input-group">
+									<span class="input-group-addon">
+										<span class="fluigicon fluigicon-calendar"></span>
+									</span>
+									<input type="text" class="form-control" id="dataAbertura" name="dataAbertura" readonly>
+								</div>
+							</div>
+
+							<div class="form-group col-md-2">
+								<label>Unidade do Solicitante</label><br>
+								<input class="form-control" type="text" id="unidadeSolicitante" name="unidadeSolicitante" readonly>
+							</div>
+
+							<div class="form-group col-md-4">
+								<label>Nome do Solicitante</label><br>
+								<input class="form-control" type="text" id="nomeSolicitante" name="nomeSolicitante" readonly>
+							</div>
+
+							<div class="form-group col-md-4">
+								<label>E-mail do Solicitante</label><br>
+								<div class="input-group">
+									<div class="input-group-addon">@</div>
+									<input class="form-control" type="text" id="emailSolicitante" name="emailSolicitante" readonly>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group col-md-4">
+								<label>Empresa</label><br>
+								<input class="form-control" type="text" id="empresaSolicitante" name="empresaSolicitante" readonly>
+							</div>
+							<div class="form-group col-md-4">
+								<label>Setor</label><br>
+								<input class="form-control" type="text" id="setorSolicitante" name="setorSolicitante" readonly>
+							</div>
+							<div id="divCentroCustoText" class="form-group col-md-4">
+								<label>Centro de Custo</label><br>
+								<input class="form-control" type="text" id="centroCustoSolicitante" name="centroCustoSolicitante" readonly>
+							</div>
+							<div id="divCentroCustoSelect" class="form-group col-md-4" style="display: none">
+								<label>Centro de Custo</label><br>
+								<select class="form-control" name="centroCustoSelect" id="centroCustoSelect" onchange="PreencherCentroCusto()">
+									<option value="Selecionar">Selecionar</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Dados do Solicitante -->
+
+				<!-- Dados da Solicitacao -->
+				<div class="panel panel-default" id="painelSolicitacao">
+					<div class="panel-heading">
+						<h3 class="panel-title">Solicitação</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="required">Descreva o problema</label><br>
+								<textarea class="form-control" rows="8" name="descricaoSolicitacao" data-size="big"></textarea>
+							</div>
+
+							<div class="form-group col-md-4" id="divCategoria">
+								<label class="required">Categoria</label><br>
+								<select name="categoria" id="categoria" class="form-control" dataset="ds_ans_dev" datasetkey="Categoria" datasetvalue="Categoria" analytics="true" gooddataid="0">
+								</select>
+							</div>
+
+							<div class="form-group col-md-4" id="divPrioridade" style="display:none;">
+								<label>Prioridade</label><br>
+								<input name="prioridade" id="prioridade" class="form-control" type="text" analytics="true" gooddataid="1">
+							</div>
+
+							<div class="form-group col-md-4" id="previsaoAtendimento" style="display:none;">
+								<label for="date-time">Previsão para atendimento da solicitação
+									<span class="fluigicon fluigicon-info-sign fluigicon-sm" data-toggle="tooltip" data-placement="top" data-original-title="Preencher somente em caso de BUG ou MELHORIA."></span>
+								</label><br>
+								<div class="input-group date">
+									<input type="text" class="form-control" name="dataPrevisao" id="dataPrevisao" analytics="true" gooddataid="2">
+									<span class="input-group-addon">
+										<span class="fluigicon fluigicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row" id="analises">
+						<!-- Análises do Suporte/Desenvolvimento -->
+							<div class="form-group col-md-6">
+			    				<label>Análise 2º Nível</label><br>
+			    				<textarea class="form-control" rows="5" name="analiseSuporte" data-size="big"></textarea>
+							</div>
+							<div class="form-group col-md-6">
+			    				<label>Análise 3º Nível</label><br>
+			    				<textarea class="form-control" rows="5" name="analiseDesenvolvimento" data-size="big"></textarea>
+							</div>
+						</div>
+						<!-- Análises do Suporte/Desenvolvimento -->
+					</div>
+				</div>
+				<!-- Dados da Solicitacao -->
+
+				<!-- Avaliação do Atendimento -->
+				<div class="panel panel-default" id="painelAvaliacao">
+					<div class="panel-heading">
+					<h3 class="panel-title">Avaliação do atendimento</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="form-group col-md-2">
+								<label class="required">Problema solucionado?</label><br>
+								<input name="switchSolucao" id="switchSolucao" type="checkbox" data-on-color="success" data-off-color="danger" data-on-Text="Sim" data-off-Text="Não" value="false">
+							</div>
+							<div class="form-group col-md-2">
+								<label>Avaliação</label><br>
+								<div class="rating fluig-ratingstars">
+									<i class="fa fluigicon fluigicon-star-empty fluigicon-sm"></i>
+									<i class="fa fluigicon fluigicon-star-empty fluigicon-sm"></i>
+									<i class="fa fluigicon fluigicon-star-empty fluigicon-sm"></i>
+									<i class="fa fluigicon fluigicon-star-empty fluigicon-sm"></i>
+									<i class="fa fluigicon fluigicon-star-empty fluigicon-sm"></i>
+								</div>
+								<input type="hidden" name="campoAvalia" id="campoAvalia" class="rating-value">
+							</div>
+
+							<div class="form-group col-md-8" id="comentario">
+					    		<label>Comentário</label><br>
+					    		<textarea class="form-control" rows="3" name="comentario" id="comentario" placeholder="" data-size="big"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Avaliação do Atendimento -->
+
+				<!-- Botões para movimentação da solicitação -->
+				<nav class="navbar navbar-fixed-bottom" role="navigation" id="navMovimentaSolicitacao">
+					<div class="container-fluid" >
+						<div class="nav navbar-right" data-toggle="buttons">
+						<label><span class="fluigicon fluigicon-info-sign fluigicon-sm" data-toggle="tooltip" data-placement="left" title="" data-original-title="É necessário escolher uma opção abaixo para movimentação da solicitação"></span>  Próximo passo:</label><br>
+							<div align="center">
+								<button name="solicitante" id="solicitante" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" data-original-title="Movimentar a solicitação de volta para o solicitante"><span class="fluigicon fluigicon-user-edit fluigicon-md" onClick="solicitante()"></span></button>
+								<button name="desenvolvimento" id="desenvolvimento" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Movimentar a solicitação para a equipe de 3º Nível"><span class="fluigicon fluigicon-user-transfer fluigicon-md" onClick="desenvolvimento()"></span></button>
+								<button name="suporte" id="suporte" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Movimentar a solicitação para a equipe 2º Nível"><span class="fluigicon fluigicon-user-transfer fluigicon-md" onClick="suporte()"></span></button>
+								<button name="finalizar" id="finalizar" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="Finalizar solicitação"><span class="fluigicon fluigicon-verified fluigicon-md" onClick="finalizar()"></span></button>
+							</div>
+						</div>
+					</div>
+				</nav>
+				<input name="proximoPasso" id="proximoPasso" class="form-control" type="text" type="hidden" value="">
+				<!-- Botões para movimentação da solicitação -->
+			</form>
+		</div>
+	</body>
+</html>
