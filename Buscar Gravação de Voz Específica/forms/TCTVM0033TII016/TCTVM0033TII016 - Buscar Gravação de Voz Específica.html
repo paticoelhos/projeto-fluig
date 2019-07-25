@@ -1,0 +1,200 @@
+<html>
+	<head>
+	
+		<!-- SCRIPTS -->
+		<script src="/resources/js/jquery/jquery.js"></script>
+		<script src="/resources/js/jquery/jquery-ui.min.js"></script>
+		<script src="/resources/js/mustache/mustache-min.js"></script>
+		<script src="/resources/style-guide/js/fluig-style-guide.min.js"></script>
+		<script src="/resources/style-guide/js/fluig-style-guide-filter.min.js"></script>
+		<script src="/resources/style-guide/js/fluig-style-guide-ratingstars.min.js"></script>
+		<script src="../vcXMLRPC.js"></script>
+		<script src="/webdesk/vcXMLRPC.js"></script>
+		<script src="/webdesk/ecm_datasets.js"></script>
+		<script src="/toro/resources/js/Eventos_Customizados.js"></script>
+		<script src="/toro/resources/js/jquery.mask.js"></script>
+		 <script src="eventos.js"></script>
+		<!-- SCRIPTS -->
+		
+		<!-- CSS -->
+		<link href='/webdesk/customresources?cid=1&resourceName=temaFormulario/0.css' type='text/css' rel='stylesheet' />
+		<link href="/resources/style-guide/css/fluig-style-guide-filter.min.css" rel="stylesheet" type="text/css">
+		<link href="/resources/style-guide/css/fluig-style-guide-ratingstars.min.css" rel="stylesheet" type="text/css">
+		<link href="/toro/resources/css/Estilos_Customizados.css" type="text/css" rel="stylesheet">
+		<link rel="stylesheet" href="https://style.fluig.com/css/fluig-style-guide-docs.min.css">
+		<!-- CSS -->
+	
+	</head>
+	<body>
+		<div class="fluig-style-guide">
+			<form id="formTemplate" name="formTemplate" role="form">
+			
+				<!-- Topo - Titulo do Processo -->
+				<div class="panel panel-default">
+					<div class="panel-body fundoPersonalizado">
+						<div class="col-md-12 text-center fs-no-padding">
+							<label class="tituloPersonalizado">Buscar Gravação de Voz Específica</label><label class="pontoPersonalizado">.</label>
+						</div>
+					</div>
+				</div>
+				<!-- Topo - Titulo do Processo -->
+				
+				<!-- Dados do Solicitante -->
+				<div class="panel panel-default" id="painelSolicitante">
+					<div class="panel-heading">
+						<h3 class="panel-title">Solicitante</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="form-group col-md-2">
+								<label>Data de Abertura</label><br>
+								<div class="input-group">
+									<span class="input-group-addon"> <span class="fluigicon fluigicon-calendar"></span></span><input type="text" class="form-control" id="dataAbertura" name="dataAbertura" readonly>
+								</div>
+							</div>
+	
+							<div class="form-group col-md-2">
+								<label>Unidade do Solicitante</label><br> <input class="form-control" type="text" id="unidadeSolicitante" name="unidadeSolicitante" readonly>
+							</div>
+	
+							<div class="form-group col-md-4">
+								<label>Nome do Solicitante</label><br> <input class="form-control" type="text" id="nomeSolicitante" name="nomeSolicitante" readonly>
+							</div>
+	
+							<div class="form-group col-md-4">
+								<label>E-mail do Solicitante</label><br>
+								<div class="input-group">
+									<div class="input-group-addon">@</div>
+									<input class="form-control" type="text" id="emailSolicitante" name="emailSolicitante" readonly>
+								</div>
+							</div>
+						</div>
+	
+						<div class="row">
+							<div class="form-group col-md-4">
+								<label>Empresa</label><br> <input class="form-control" type="text" id="empresaSolicitante" name="empresaSolicitante" readonly>
+							</div>
+							<div class="form-group col-md-4">
+								<label>Setor</label><br> <input class="form-control" type="text" id="setorSolicitante" name="setorSolicitante" readonly>
+							</div>
+							<div id="divCentroCustoText" class="form-group col-md-4">
+								<label>Centro de Custo</label><br> <input class="form-control" type="text" id="centroCustoSolicitante" name="centroCustoSolicitante" readonly>
+							</div>
+							<div id="divCentroCustoSelect" class="form-group col-md-4" style="display: none">
+								<label>Centro de Custo</label><br> <select class="form-control" name="centroCustoSelect" id="centroCustoSelect" onchange="PreencherCentroCusto()">
+									<option value="Selecionar">Selecionar</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Dados do Solicitante -->
+				
+				<!-- Informações sobre a gravação -->
+				<div class="panel panel-default" id="painelSolicitacao">
+					<div class="panel-heading">
+						<h3 class="panel-title">Informações sobre a gravação</h3>
+					</div>
+					<div class="panel-body">	
+						<div class="row">
+							<div class="form-group col-md-3">
+								<label>Funcionário</label><br> 
+								<input type="zoom" name="funcionario" id="funcionario" data-zoom="
+								{
+									'displayKey':'colleagueName',
+									'datasetId':'colleague',
+									'filterValues':'active,true',
+									'fields':[
+												{'field':'colleagueName', 'label':'Nome', 'standard':'true'},
+												{'field':'login', 'label':'Login'}]
+								}" />	
+							</div>
+							<div class="form-group col-md-3">
+								<label>Ramal</label><br> 
+								<input class="form-control" type="text" id="ramal" name="ramal">
+							</div>
+							<div class="form-group col-md-3">
+								<label for="dateTimeInicio">Data/Hora Início</label><br>
+								<div class="input-group">
+									<input type="text" class="form-control" id="dataHoraInicio" name="dataHoraInicio">
+									<span class="input-group-addon"> 
+										<span class="fluigicon fluigicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="dateTimeTermino">Data/Hora Término</label>
+								<div class="input-group">
+									<input type="text" class="form-control" name="dataHoraTermino" id="dataHoraTermino">
+									<span class="input-group-addon"> 
+										<span class="fluigicon fluigicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+						</div>		
+					</div>
+				</div>
+				<!-- Informações sobre a gravação -->
+				
+				<!-- Aprovação -->
+				<div class="panel-group" id="accordionAprovacao">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#collapseAprovacao">Aprovação </a>
+							</h4>
+						</div>
+						<div id="collapseAprovacao" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<div class="form-group col-md-3">
+									<label class="required">Solicitação aprovada?</label><br> 
+									<div class="radio">
+										<label><input type="radio" name="aprovacaoSolicitacao" id="sim" value="Sim"> Sim</label>
+									</div>
+									<div class="radio">
+										<label><input type="radio" name="aprovacaoSolicitacao" id="nao" value="Não"> Não</label>
+									</div>
+								</div>
+								<div class="form-group col-md-9">
+									<label class="required">Observação</label><br> 
+									<textarea class="form-control" rows="3" id="observacaoAprovacao" name="observacaoAprovacao" style="resize: none;"></textarea>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Aprovação -->
+					
+				<!-- Liberação de Acesso -->
+				<div class="panel-group" id="accordionLiberacao">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<a class="collapse-icon" data-toggle="collapse" data-parent="#accordion" href="#collapseLiberacao">Liberação de Acesso </a>
+							</h4>
+						</div>
+						<div id="collapseLiberacao" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<div class="form-group col-md-3">
+									<label class="required">Acesso liberado?</label><br> 
+									<div class="radio">
+										<label><input type="radio" name="liberado" id="sim" value="Sim"> Sim</label>
+									</div>
+									<div class="radio">
+										<label><input type="radio" name="liberado" id="nao" value="Não"> Não</label>
+									</div>
+								</div>
+							<div class="form-group col-md-9">
+								<label class="required">Observação</label><br> 
+								<textarea class="form-control" rows="3" id="observacaoLiberacao" name="observacaoLiberacao" style="resize: none;"></textarea>
+							</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Liberação de Acesso -->
+				
+			</form>
+		</div>
+	</body>
+</html>
